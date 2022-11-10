@@ -11,8 +11,7 @@ import javax.persistence.*;
 @Table(name = "USER")
 @Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no")
     private Long userNo;
 
@@ -25,13 +24,19 @@ public class User {
     @Embedded
     private UserPw userPw;
 
-    public User(final String name, final String email, final String password) {
+    public User(final String name, final String email, final String pw) {
         this.userName = new UserName(name);
-        //this.userEmail = new UserEmail(email);
-        //this.userPw = new UserPw(password);
+        this.userEmail = new UserEmail(email);
+        this.userPw = new UserPw(pw);
     }
 
     public String getName() {
         return userName.getUserName();
+    }
+    public String getEmail(){
+        return userEmail.getUserEmail();
+    }
+    public String getPw(){
+        return userPw.getUserPw();
     }
 }
